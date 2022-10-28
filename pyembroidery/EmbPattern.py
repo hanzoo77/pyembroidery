@@ -1634,14 +1634,17 @@ class EmbPattern:
                         writer.write(pattern, stream, settings)
                 except IOError:
                     pass
+                return stream
             else:
                 try:
                     with open(stream, "wb") as stream:
                         writer.write(pattern, stream, settings)
                 except IOError:
                     pass
+                return stream
         else:
             writer.write(pattern, stream, settings)
+            return stream
 
     @staticmethod
     def write_dst(pattern, stream, settings=None):
@@ -1671,8 +1674,8 @@ class EmbPattern:
     @staticmethod
     def write_jef(pattern, stream, settings=None):
         """Writes fileobject as JEF file"""
-        EmbPattern.write_embroidery(JefWriter, pattern, stream, settings)
-
+        result = EmbPattern.write_embroidery(JefWriter, pattern, stream, settings)
+        return result
     @staticmethod
     def write_u01(pattern, stream, settings=None):
         """Writes fileobject as U01 file"""
